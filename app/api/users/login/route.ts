@@ -2,13 +2,15 @@ import {connect } from "../../../db/dbconfig";
 import User from "@/models/userModel.js";
 import { NextRequest,NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-import { requestToBodyStream } from "next/dist/server/body-streams";
 import jwt from "jsonwebtoken";
 connect();
 
 export async function POST(request:NextRequest) {
     try {
         const reqBody=await request.json();
+        // we can not use get because get have no bodies so use post method
+        // never use get for login and signup keep in mind
+        // i can say get for reading for other works use post
         const {email,password}=reqBody;
         const user= await User.findOne({email});
         if(!user){

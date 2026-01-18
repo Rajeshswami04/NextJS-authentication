@@ -18,7 +18,7 @@ export default function LoginPage() {
       setLoading(true);
       await axios.post("/api/users/login", user);
       toast.success("logged in");
-      console.log("ohk looged");
+      console.log("ohk logged");
       router.push("/profile");
     } catch (error: any) {
       console.log("Login Failed ", error.message);
@@ -54,7 +54,7 @@ export default function LoginPage() {
         onChange={(e) => setUser({ ...user, password: e.target.value })}
         placeholder="password"
       />
-      <button onClick={onLogin}  className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+      <button onClick={onLogin} disabled={buttonDisabled} className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
             >Login here </button>
       <Link href="/signup">signup here</Link>
     </div>

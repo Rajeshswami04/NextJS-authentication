@@ -30,7 +30,8 @@ export default function SignupPage() {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
-      console.log("Signed success ", response.data);
+      // console.log("Signed success ", response.data);
+      toast.success("Signed success ");
       router.push("/login");
     } catch (error: any) {
       toast.error(error.message);
@@ -45,7 +46,7 @@ export default function SignupPage() {
       <hr />
       <label htmlFor="username">username</label>
       <input
-       className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-white"
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-white"
         id="username"
         type="text"
         value={user.username}
@@ -54,7 +55,7 @@ export default function SignupPage() {
       />
       <label htmlFor="email">email</label>
       <input
-      className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-white"
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-white"
         id="email"
         type="text"
         value={user.email}
@@ -63,16 +64,17 @@ export default function SignupPage() {
       />
       <label htmlFor="password">password</label>
       <input
-       className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-white"
-      
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-white"
         id="password"
         type="password"
         value={user.password}
         onChange={(e) => setUser({ ...user, password: e.target.value })}
         placeholder="password"
       />
-      <button onClick={onSignup}
-      className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">
+      <button
+        onClick={onSignup}
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+      >
         {buttonDisabled ? "No Sign" : "SignUp"}
       </button>
       <Link href="/login">login here</Link>
