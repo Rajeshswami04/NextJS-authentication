@@ -4,28 +4,28 @@ import User from "@/models/userModel";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const sendEmail = async ({ email, emailType, userId }: any) => {
+export const sendEmail = async ({ email, emailType, userId ,token}: any) => {
   try {
-    const hashedToken = await bcryptjs.hash(userId.toString(), 10);
 
     if (emailType === "VERIFY") {
       await User.findByIdAndUpdate(userId, {
-        verifyToken: hashedToken,
+        verifyToken: token,
         verifyTokenExpiry: Date.now() + 3600000,
       });
     } else if (emailType === "RESET") {
       await User.findByIdAndUpdate(userId, {
-        forgotPasswordToken: hashedToken,
+        forgotPasswordToken: token,
         forgotPasswordTokenExpiry: Date.now() + 3600000,
       });
     }
 
+// Looking to send emails in production? Check out our Email API/SMTP product!
 var transport = nodemailer.createTransport({
   host: "sandbox.smtp.mailtrap.io",
   port: 2525,
   auth: {
-    user: "5f86096edbbe19",
-    pass: "2c82f242e614dc"
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
   }
 });
 
@@ -35,9 +35,15 @@ var transport = nodemailer.createTransport({
   subject: emailType === "VERIFY"
     ? "Verify your email"
     : "Reset your password",
-  html: `
+  html:emailType==="VERIFY"? `
     <p>
-      Click <a href="${process.env.domain}/verifyemail?token=${hashedToken}">
+      Click <a href="${process.env.domain}/verifyemail?token=${token}">
+        here
+      </a>
+    </p>
+  `: `
+    <p>
+      Click <a href="${process.env.domain}/resetpassword?token=${token}">
         here
       </a>
     </p>
@@ -47,6 +53,6 @@ var transport = nodemailer.createTransport({
 console.log("Email sent:", info);
 
   } catch (error: any) {
-    throw new Error(error.message);
+    
   }
 };

@@ -1,3 +1,0 @@
-// forgotPasswordToken: String,
-//     forwardPasswordTokenExpiry: Date,
-
