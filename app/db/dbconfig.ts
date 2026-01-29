@@ -4,7 +4,7 @@ dotenv.config()
 
 export async function connect() {
     try{
-        mongoose.connect(process.env.MONGO_URI!)// uri always available
+        await mongoose.connect(process.env.MONGO_URI!)// uri always available
         const connection = mongoose.connection;
         connection.on('connected',()=>{
             console.log("mongo db connected ",connection.host)

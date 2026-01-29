@@ -4,7 +4,7 @@ import User from "@/models/userModel";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const sendEmail = async ({ email, emailType, userId ,token}: any) => {
+export const sendEmail = async ({ email, emailType, userId }: any) => {
   try {
  // create a hased token
  const hashedToken = await bcryptjs.hash(userId.toString(), 1);
@@ -34,13 +34,13 @@ var transport = nodemailer.createTransport({
     : "Reset your password",
   html:emailType==="VERIFY"? `
     <p>
-      Click <a href="${process.env.domain}/verifyemail?token=${token}">
+      Click <a href="${process.env.domain}/verifyemail?token=${hashedToken}">
         here
       </a>
     </p>
   `: `
     <p>
-      Click <a href="${process.env.domain}/resetpassword?token=${token}">
+      Click <a href="${process.env.domain}/resetpassword?token=${hashedToken}">
         here
       </a>
     </p>
