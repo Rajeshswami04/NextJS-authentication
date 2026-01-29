@@ -6,6 +6,7 @@ import User from "@/models/userModel";
 connect();
 
 
+
 export async function GET(request:NextRequest){
    try {
     const userr=await getDataFromToken(request);

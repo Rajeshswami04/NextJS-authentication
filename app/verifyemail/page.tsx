@@ -3,18 +3,19 @@
 import axios from "axios"
 import Link from "next/link"
 import { useEffect,useState } from "react"
-
+import toast from "react-hot-toast"
 export default function VerifyEmailPage(){
     const [token,setToken]=useState("");
     const [verified,setVerified]=useState(false);
-    const [error,setError]=useState(false);
+   
     
     const VerifyEmailPage=async()=>{
         try {
             await axios.post("/api/users/verifyemail",{token})
             setVerified(true);
+            toast.success("verified");
         } catch (error:any) {
-            setError(true);
+            toast.error(error.message)
             console.log(error.response.data);            
         }
     }
@@ -37,11 +38,6 @@ export default function VerifyEmailPage(){
             <div>
                 <h2 className="text-2xl">Email verified</h2>
                 <Link href={"/login"}>Login</Link>
-            </div>
-         )}
-          {error&& (
-            <div>
-                <h2 className="py-3 text-2xl text-black bg-red-500">Error</h2>
             </div>
          )}
        </div>  

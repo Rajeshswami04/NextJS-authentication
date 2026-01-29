@@ -11,6 +11,9 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+
+
+  
   const [loading, setLoading] = React.useState(false);
   const [buttonDisabled, setButtonDisable] = React.useState(false);
   const onLogin = async () => {
@@ -31,6 +34,9 @@ export default function LoginPage() {
     if(user.email.length>0&&user.password.length>0){setButtonDisable(false);}
     else setButtonDisable(true);
   },[user]);
+
+
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <h1>{loading ? "processing" : "Login"}</h1>

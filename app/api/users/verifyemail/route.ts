@@ -2,7 +2,7 @@ import { connect } from "@/app/db/dbconfig";
 import { NextRequest, NextResponse } from "next/server";
 
 import User from "@/models/userModel";
-import { sendEmail } from "@/helpers/mailer";
+// import { sendEmail } from "@/helpers/mailer";
 
 connect();
 
@@ -22,7 +22,6 @@ export async function POST(request: NextRequest) {
     user.verifyToken = undefined;
     user.verifyTokenExpiry = undefined;
     await user.save();
-    console.log("letso");
     return NextResponse.json({ message: "email verified" }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

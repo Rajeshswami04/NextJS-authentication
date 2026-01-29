@@ -14,6 +14,8 @@ export default function SignupPage() {
   });
   const [buttonDisabled, setButtonDisable] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  
+  
   useEffect(() => {
     if (
       user.email.length > 0 &&
